@@ -1,9 +1,11 @@
+import { RouterProvider } from "@tanstack/react-router";
 import "./App.css";
+import { router } from "./routes";
 
 function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>{" "}
+      <RouterProvider router={router}></RouterProvider>
     </>
   );
 }
