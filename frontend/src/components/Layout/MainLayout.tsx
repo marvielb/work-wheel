@@ -2,10 +2,13 @@ import { Link, Outlet } from '@tanstack/react-router';
 import CarIcon from './icons/CarIcon';
 import HistoryIcon from './icons/HistoryIcon';
 import SearchIcon from './icons/SearchIcon';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { bookingRoutes } from '@/features/bookings/routes';
 import { searchRoutes } from '@/features/search/routes';
 import { historyRoutes } from '@/features/history/routes';
+import { useAuth } from 'react-oidc-context';
+import PersonIcon from './icons/PersonIcon';
+import { profileRoutes } from '@/features/profile/routes';
 
 interface LayoutData {
   label: string;
@@ -14,6 +17,15 @@ interface LayoutData {
 }
 
 export const MainLayout = () => {
+  const auth = useAuth();
+
+  useEffect(() => {
+    if (auth.isLoading || auth.isAuthenticated) {
+      return;
+    }
+    auth.signinRedirect();
+  }, [auth]);
+
   const layoutData: Array<LayoutData> = [
     {
       label: 'Bookings',
@@ -30,12 +42,19 @@ export const MainLayout = () => {
       icon: <HistoryIcon />,
       path: historyRoutes.fullPath,
     },
+    {
+      label: 'Profile',
+      icon: <PersonIcon />,
+      path: profileRoutes.fullPath,
+    },
   ];
 
   return (
     <>
-      <Outlet />
-      <div className="btm-nav btm-nav-lg">
+      <div className="p-4">
+        <Outlet />
+      </div>
+      <div className="btm-nav  shadow-2xl">
         {layoutData.map((data, i) => (
           <Link key={i} to={data.path}>
             {data.icon}
