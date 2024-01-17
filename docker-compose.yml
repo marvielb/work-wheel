@@ -8,3 +8,29 @@ services:
     command: start-dev
     ports:
       - 8080:8080
+  pgsql:
+    image: "postgres:15"
+    ports:
+      - "${FORWARD_DB_PORT:-5432}:5432"
+    environment:
+      PGPASSWORD: "secret"
+      POSTGRES_DB: "shuttle_catalog"
+      POSTGRES_USER: "work_wheel"
+      POSTGRES_PASSWORD: "secret"
+    volumes:
+      - "sail-pgsql:/var/lib/postgresql/data"
+    healthcheck:
+      test:
+        - CMD
+        - pg_isready
+        - "-q"
+        - "-d"
+        - "shuttle_catalog"
+        - "-U"
+        - "work_wheel"
+      retries: 3
+      timeout: 5s
+
+volumes:
+  sail-pgsql:
+    driver: local
