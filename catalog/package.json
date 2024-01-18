@@ -4,8 +4,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/index.ts",
-    "gen:migration": "bun run scripts/generate-migration.ts",
+    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
     "migrate": "bun run scripts/migrate.ts",
+    "gen:migration": "bun run scripts/generate-migration.ts",
     "gen:types": "bunx kysely-codegen"
   },
   "dependencies": {
@@ -17,7 +18,8 @@
   "devDependencies": {
     "@types/pg": "^8.10.9",
     "bun-types": "latest",
-    "kysely-codegen": "^0.11.0"
+    "kysely-codegen": "^0.11.0",
+    "prettier": "^3.2.4"
   },
   "module": "src/index.js"
 }

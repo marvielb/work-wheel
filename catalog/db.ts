@@ -1,6 +1,6 @@
-import { Kysely, PostgresDialect } from "kysely";
-import { Pool } from "pg";
-import { DB } from "kysely-codegen";
+import { Kysely, PostgresDialect } from 'kysely';
+import { Pool } from 'pg';
+import { DB } from 'kysely-codegen';
 
 const dialect = new PostgresDialect({
   pool: new Pool({

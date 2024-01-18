@@ -1,16 +1,14 @@
-import * as fs from "fs";
-import * as path from "path";
+import * as fs from 'fs';
+import * as path from 'path';
 
 function generateMigrationFile(description: string): void {
-  const timestamp = new Date().toISOString().replace(/[-T:]/g, "").slice(0, -5); // YYYYMMDDHHmmss
-  const migrationFileName = `${timestamp}_${description
-    .replace(/\s+/g, "_")
-    .toLowerCase()}.ts`;
+  const timestamp = new Date().toISOString().replace(/[-T:]/g, '').slice(0, -5); // YYYYMMDDHHmmss
+  const migrationFileName = `${timestamp}_${description.replace(/\s+/g, '_').toLowerCase()}.ts`;
   const migrationFilePath = path.join(
     path.dirname(new URL(import.meta.url).pathname),
-    "..",
-    "migrations",
-    migrationFileName,
+    '..',
+    'migrations',
+    migrationFileName
   );
 
   console.log(migrationFilePath);
@@ -35,5 +33,5 @@ const description: string = process.argv[2]; // You can provide a description as
 if (description) {
   generateMigrationFile(description);
 } else {
-  console.error("Please provide a description for the migration.");
+  console.error('Please provide a description for the migration.');
 }
