@@ -3,11 +3,16 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "gen:migration": "bun run scripts/generate-migration.ts",
+    "migrate": "bun run scripts/migrate.ts"
   },
   "dependencies": {
     "@elysiajs/cors": "^0.8.0",
-    "elysia": "latest"
+    "@types/pg": "^8.10.9",
+    "elysia": "latest",
+    "kysely": "^0.27.2",
+    "pg": "^8.11.3"
   },
   "devDependencies": {
     "bun-types": "latest"
