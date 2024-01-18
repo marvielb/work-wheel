@@ -4,7 +4,7 @@ export async function up(db: Kysely<any>): Promise<void> {
   await db.schema
     .createTable("time_departures")
     .addColumn("id", "serial", (col) => col.primaryKey())
-    .addColumn("time", "timetz", (col) => col.unique())
+    .addColumn("time", "time", (col) => col.unique().notNull())
     .execute();
 }
 

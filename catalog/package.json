@@ -5,17 +5,19 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/index.ts",
     "gen:migration": "bun run scripts/generate-migration.ts",
-    "migrate": "bun run scripts/migrate.ts"
+    "migrate": "bun run scripts/migrate.ts",
+    "gen:types": "bunx kysely-codegen"
   },
   "dependencies": {
     "@elysiajs/cors": "^0.8.0",
-    "@types/pg": "^8.10.9",
     "elysia": "latest",
     "kysely": "^0.27.2",
     "pg": "^8.11.3"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "@types/pg": "^8.10.9",
+    "bun-types": "latest",
+    "kysely-codegen": "^0.11.0"
   },
   "module": "src/index.js"
 }

@@ -1,37 +1,13 @@
-import {
-  FileMigrationProvider,
-  Kysely,
-  Migrator,
-  PostgresDialect,
-} from "kysely";
-import { Pool } from "pg";
+import { FileMigrationProvider, Migrator, sql } from "kysely";
 import { promises as fs } from "fs";
 import path from "path";
+import db from "../db";
 
-const dialect = new PostgresDialect({
-  pool: new Pool({
-    database: "shuttle_catalog",
-    host: "localhost",
-    user: "work_wheel",
-    password: "secret",
-    port: 5432,
-    max: 10,
-  }),
-});
-
-// Database interface is passed to Kysely's constructor, and from now on, Kysely
-// knows your database structure.
-// Dialect is passed to Kysely's constructor, and from now on, Kysely knows how
-// to communicate with your database.
 const migrationFilePath = path.join(
   path.dirname(new URL(import.meta.url).pathname),
   "..",
   "migrations",
 );
-
-export const db = new Kysely<any>({
-  dialect,
-});
 
 const migrator = new Migrator({
   db,
@@ -41,6 +17,18 @@ const migrator = new Migrator({
     migrationFolder: migrationFilePath,
   }),
 });
+
+if (process.argv[2]) {
+  await sql`DO $$ 
+DECLARE 
+    table_to_drop text; 
+BEGIN 
+    FOR table_to_drop IN (SELECT table_name FROM information_schema.tables WHERE table_schema = 'public') 
+    LOOP 
+        EXECUTE 'DROP TABLE IF EXISTS ' || table_to_drop || ' CASCADE'; 
+    END LOOP; 
+END $$;`.execute(db);
+}
 
 const result = await migrator.migrateToLatest();
 console.log(result);
