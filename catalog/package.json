@@ -6,6 +6,7 @@
     "dev": "bun run --watch src/index.ts",
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
     "migrate": "bun run scripts/migrate.ts",
+    "seed": "bun run scripts/seed-database.ts",
     "gen:migration": "bun run scripts/generate-migration.ts",
     "gen:types": "bunx kysely-codegen"
   },
