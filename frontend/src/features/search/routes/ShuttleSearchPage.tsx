@@ -7,10 +7,10 @@ const ShuttleSearchPage = () => {
       <div className="max-w-lg max-h-[calc(100vh-4rem)]">
         <ShuttleSearchForm />
         <h2 className="font-bold text-lg text-left mt-7">Available Shuttles</h2>
-        <div className="flex flex-col gap-5 overflow-y-auto h-[calc(100%-18.75rem)]">
-          {data.map(() => {
+        <div className="flex flex-col gap-5 overflow-y-auto h-[calc(100%-21rem)]">
+          {data.map((i) => {
             return (
-              <div className="card card-side bg-base-100 shadow-xl text-left">
+              <div key={i} className="card card-side bg-base-100 shadow-xl text-left">
                 <figure>
                   <img
                     src="https://daisyui.com/images/stock/photo-1635805737707-575885ab0820.jpg"

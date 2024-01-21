@@ -3,6 +3,7 @@ import './App.css';
 import { router } from './routes';
 import { AuthProvider } from 'react-oidc-context';
 import { WebStorageStateStore } from 'oidc-client-ts';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const oidcConfig = {
   authority: import.meta.env.VITE_OIDC_AUTH_URL,
@@ -11,11 +12,15 @@ const oidcConfig = {
   userStore: new WebStorageStateStore({ store: window.localStorage }),
 };
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
     <>
       <AuthProvider {...oidcConfig}>
-        <RouterProvider router={router}></RouterProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router}></RouterProvider>
+        </QueryClientProvider>
       </AuthProvider>
     </>
   );

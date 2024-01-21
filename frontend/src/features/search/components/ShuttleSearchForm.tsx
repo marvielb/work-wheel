@@ -1,11 +1,20 @@
+import { useQuery } from '@tanstack/react-query';
+import fetchTimeDepartures from '../api/fetchTimeSlots';
+
 const ShuttleSearchForm = () => {
+  const timeDepartures = useQuery({ queryKey: ['timeDepartures'], queryFn: fetchTimeDepartures });
   return (
     <div>
       <label className="form-control">
-        <select defaultValue={undefined} className="select select-bordered shadow-lg">
-          <option value={undefined} disabled selected>
-            Time Slot
-          </option>
+        <div className="label">
+          <span className="label-text font-bold">Departure Time</span>
+        </div>
+        <select className="select select-bordered shadow-lg">
+          {timeDepartures.data?.map((time) => (
+            <option key={`time-departure-${time.id}`} value={time.id}>
+              {time.time}
+            </option>
+          ))}
         </select>
       </label>
       <div className="flex gap-2 mt-2">
