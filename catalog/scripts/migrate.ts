@@ -1,7 +1,7 @@
 import { FileMigrationProvider, Migrator, sql } from 'kysely';
 import { promises as fs } from 'fs';
 import path from 'path';
-import db from '../db';
+import db from 'db';
 
 const migrationFilePath = path.join(
   path.dirname(new URL(import.meta.url).pathname),

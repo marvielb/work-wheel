@@ -1,5 +1,21 @@
 import db from '../db';
 
+await db
+  .insertInto('time_departures')
+  .values(generateTimeIntervals().map((v) => ({ time: v })))
+  .execute();
+
+await db
+  .insertInto('locations')
+  .values([
+    { name: 'Manila', abbreviation: 'MNL' },
+    { name: 'Quezon City', abbreviation: 'QC' },
+    { name: 'Makati City', abbreviation: 'MKA' },
+    { name: 'Taguig City', abbreviation: 'TAG' },
+    { name: 'Pasig City', abbreviation: 'PSG' },
+  ])
+  .execute();
+
 function generateTimeIntervals(): string[] {
   const intervals: string[] = [];
   let currentTime = new Date();
@@ -21,10 +37,3 @@ function generateTimeIntervals(): string[] {
 
   return intervals;
 }
-
-const timeIntervals = generateTimeIntervals();
-
-await db
-  .insertInto('time_departures')
-  .values(timeIntervals.map((v) => ({ time: v })))
-  .execute();
