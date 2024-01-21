@@ -1,4 +1,4 @@
-import db from '../db';
+import db from 'db';
 
 await db
   .insertInto('time_departures')

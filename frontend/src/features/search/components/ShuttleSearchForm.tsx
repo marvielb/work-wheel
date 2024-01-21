@@ -1,8 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import fetchTimeDepartures from '../api/fetchTimeSlots';
+import fetchLocations from '../api/fetchLocations';
 
 const ShuttleSearchForm = () => {
   const timeDepartures = useQuery({ queryKey: ['timeDepartures'], queryFn: fetchTimeDepartures });
+  const locations = useQuery({ queryKey: ['locations'], queryFn: fetchLocations });
   return (
     <div>
       <label className="form-control">
@@ -23,11 +25,11 @@ const ShuttleSearchForm = () => {
             <span className="label-text font-bold">From</span>
           </div>
           <select className="select select-bordered shadow-lg">
-            <option>Star Wars</option>
-            <option>Harry Potter</option>
-            <option>Lord of the Rings</option>
-            <option>Planet of the Apes</option>
-            <option>Star Trek</option>
+            {locations.data?.map((location) => (
+              <option key={`location-from-${location.id}`} value={location.id}>
+                {location.name}
+              </option>
+            ))}
           </select>
         </label>
         <label className="form-control w-full flex-shrink">
@@ -35,11 +37,11 @@ const ShuttleSearchForm = () => {
             <span className="label-text ">To</span>
           </div>
           <select className="select select-bordered shadow-lg">
-            <option>Star Wars</option>
-            <option>Harry Potter</option>
-            <option>Lord of the Rings</option>
-            <option>Planet of the Apes</option>
-            <option>Star Trek</option>
+            {locations.data?.map((location) => (
+              <option key={`location-to-${location.id}`} value={location.id}>
+                {location.name}
+              </option>
+            ))}
           </select>
         </label>
       </div>
