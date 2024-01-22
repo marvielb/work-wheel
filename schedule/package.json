@@ -3,14 +3,17 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "gen:api": "openapi-typescript $CATALOG_SERVICE_OPEN_API_JSON_URL -o ./src/lib/api/catalog.d.ts"
   },
   "dependencies": {
     "@elysiajs/cors": "^0.8.0",
-    "elysia": "latest"
+    "elysia": "latest",
+    "openapi-fetch": "^0.8.2"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "openapi-typescript": "^6.7.4"
   },
   "module": "src/index.js"
 }
