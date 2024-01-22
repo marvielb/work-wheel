@@ -16,6 +16,22 @@ await db
   ])
   .execute();
 
+await db
+  .insertInto('shuttles')
+  .values([
+    {
+      driver_id: '3942e616-fbc9-4866-8e2a-137599c6cc48',
+      model_name: 'Mitsubishi L300',
+      plate_number: 'XCV-123',
+      capacity: 16,
+      image_url:
+        'https://www.mitsubishi-motors.com.ph/content/dam/mitsubishi-motors-ph/images/cars/l300/2020/primary/exterior/20l300-01/W50_135_20SL-Front-R.png',
+      route_start_location_id: 1,
+      route_end_location_id: 2,
+    },
+  ])
+  .execute();
+
 function generateTimeIntervals(): string[] {
   const intervals: string[] = [];
   let currentTime = new Date();
