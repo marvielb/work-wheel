@@ -30,6 +30,21 @@ services:
         - "work_wheel"
       retries: 3
       timeout: 5s
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: work_wheel
+      MONGO_INITDB_ROOT_PASSWORD: secret
+    ports:
+      - 27017:27017
+
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ENABLE_ADMIN: true
+      ME_CONFIG_MONGODB_URL: mongodb://work_wheel:secret@mongo:27017/
 
 volumes:
   sail-pgsql:

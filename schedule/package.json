@@ -5,11 +5,14 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/index.ts",
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
-    "gen:api": "openapi-typescript $CATALOG_SERVICE_OPEN_API_JSON_URL -o ./src/lib/api/catalog.d.ts"
+    "gen:api": "openapi-typescript $CATALOG_SERVICE_OPEN_API_JSON_URL -o ./src/lib/api/catalog.d.ts",
+    "gen:sched": "bun run scripts/generate-schedules.ts"
   },
   "dependencies": {
     "@elysiajs/cors": "^0.8.0",
+    "@sinclair/typebox": "^0.32.12",
     "elysia": "latest",
+    "mongodb": "^6.3.0",
     "openapi-fetch": "^0.8.2"
   },
   "devDependencies": {
