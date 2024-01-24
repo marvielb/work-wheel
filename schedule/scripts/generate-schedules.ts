@@ -1,34 +1,8 @@
 import { catalogClient } from '@/lib/api';
-import { Type as t } from '@sinclair/typebox';
 import { Value } from '@sinclair/typebox/value';
 import { schedulesCollection } from 'db';
-
-const shuttleSchema = t.Object(
-  {
-    id: t.Number(),
-    driver_id: t.String(),
-    model_name: t.String(),
-    plate_number: t.String(),
-    capacity: t.Number(),
-    image_url: t.String(),
-    route_start_location_id: t.Number(),
-    route_end_location_id: t.Number(),
-  },
-  { description: 'Shuttle Information' }
-);
-
-const shuttleScheduleSchema = t.Object({
-  id: t.String(),
-  shuttle_id: t.Number(),
-  time_departure_id: t.Number(),
-  from_location_id: t.Number(),
-  to_location_id: t.Number(),
-  reservation_date: t.Date(),
-  shuttle: shuttleSchema,
-  time_departure: t.Any(),
-  from_location: t.Any(),
-  to_location: t.Any(),
-});
+import { Type as t } from '@sinclair/typebox';
+import { shuttleScheduleSchema } from '@/schemas';
 
 const insertShuttleScheduleSchema = t.Omit(shuttleScheduleSchema, ['id']);
 
