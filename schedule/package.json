@@ -5,7 +5,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/index.ts",
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
-    "gen:api": "openapi-typescript $CATALOG_SERVICE_OPEN_API_JSON_URL -o ./src/lib/api/catalog.d.ts",
+    "gen:api": "openapi-typescript $CATALOG_SERVICE_OPEN_API_JSON_URL -o ./src/lib/api/catalog.d.ts && openapi-typescript $KEYCLOAK_OPEN_API_JSON_URL -o ./src/lib/api/keycloak.d.ts ",
     "gen:sched": "bun run scripts/generate-schedules.ts"
   },
   "dependencies": {

@@ -2,6 +2,7 @@ import { Type as t } from '@sinclair/typebox';
 import { shuttleSchema } from './shuttle';
 import { timeDeparture } from './timeDeparture';
 import { location } from './location';
+import { driverSchema } from './driver';
 
 export const shuttleScheduleSchema = t.Object({
   id: t.String(),
@@ -14,4 +15,5 @@ export const shuttleScheduleSchema = t.Object({
   time_departure: timeDeparture,
   from_location: location,
   to_location: location,
+  driver: driverSchema,
 });

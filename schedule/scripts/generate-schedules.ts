@@ -1,4 +1,4 @@
-import { catalogClient } from '@/lib/api';
+import { catalogClient, getKeyCloakToken, keyCloakClient } from '@/lib/api';
 import { Value } from '@sinclair/typebox/value';
 import { schedulesCollection } from 'db';
 import { Type as t } from '@sinclair/typebox';
@@ -6,9 +6,21 @@ import { shuttleScheduleSchema } from '@/schemas';
 
 const insertShuttleScheduleSchema = t.Omit(shuttleScheduleSchema, ['id']);
 
+const accessToken = await getKeyCloakToken();
+
 const { data: shuttles } = await catalogClient.GET('/shuttles');
 const { data: times } = await catalogClient.GET('/time-departures');
 const { data: locations } = await catalogClient.GET('/locations');
+const { data: drivers } = await keyCloakClient.GET('/admin/realms/{realm}/groups/{id}/members', {
+  params: { path: { realm: 'work-wheel', id: Bun.env.KEYCLOAK_DRIVERS_GROUP_ID || '' } },
+  headers: {
+    Authorization: `Bearer ${accessToken}`,
+    'Content-Type': 'application/json',
+  },
+});
+
+console.log('drivers:');
+console.log(drivers);
 
 const now = new Date();
 now.setHours(0, 0, 0, 0);
@@ -29,6 +41,7 @@ const inserts = shuttles
         time_departure: time,
         from_location: locations?.find((location) => location.id === routeStartID),
         to_location: locations?.find((location) => location.id === routeEndID),
+        driver: drivers?.find((driver) => driver.id === shuttle.driver_id),
       });
       return schedule;
     });
