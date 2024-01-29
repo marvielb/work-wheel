@@ -5,12 +5,12 @@ import { location } from './location';
 import { driverSchema } from './driver';
 
 export const shuttleScheduleSchema = t.Object({
-  id: t.String(),
+  _id: t.Any(),
   shuttle_id: t.Number(),
   time_departure_id: t.Number(),
   from_location_id: t.Number(),
   to_location_id: t.Number(),
-  reservation_date: t.Date(),
+  date: t.Date(),
   shuttle: shuttleSchema,
   time_departure: timeDeparture,
   from_location: location,

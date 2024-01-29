@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@elysiajs/cors": "^0.8.0",
-    "@sinclair/typebox": "^0.32.12",
+    "@elysiajs/swagger": "^0.8.5",
     "elysia": "latest",
     "mongodb": "^6.3.0",
     "openapi-fetch": "^0.8.2"

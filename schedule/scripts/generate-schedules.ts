@@ -4,7 +4,7 @@ import { schedulesCollection } from 'db';
 import { Type as t } from '@sinclair/typebox';
 import { shuttleScheduleSchema } from '@/schemas';
 
-const insertShuttleScheduleSchema = t.Omit(shuttleScheduleSchema, ['id']);
+const insertShuttleScheduleSchema = t.Omit(shuttleScheduleSchema, ['_id']);
 
 const accessToken = await getKeyCloakToken();
 
@@ -36,13 +36,14 @@ const inserts = shuttles
         time_departure_id: time.id,
         from_location_id: routeStartID,
         to_location_id: routeEndID,
-        reservation_date: now,
+        date: now,
         shuttle: shuttle,
         time_departure: time,
         from_location: locations?.find((location) => location.id === routeStartID),
         to_location: locations?.find((location) => location.id === routeEndID),
         driver: drivers?.find((driver) => driver.id === shuttle.driver_id),
       });
+      Value.Clean(insertShuttleScheduleSchema, schedule);
       return schedule;
     });
     return schedules ? schedulesCollection.insertMany(schedules) : undefined;
@@ -50,6 +51,9 @@ const inserts = shuttles
   .filter((promise) => !!promise);
 
 const result = await Promise.allSettled(inserts!);
+const indexFields = { date: 1, time_departure_id: 1, from_location_id: 1, to_location_id: 1 };
+await schedulesCollection.createIndex(indexFields);
+
 console.log(result);
 
 process.exit();
