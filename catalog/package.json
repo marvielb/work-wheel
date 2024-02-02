@@ -11,9 +11,11 @@
     "gen:types": "bunx kysely-codegen"
   },
   "dependencies": {
+    "@elysiajs/bearer": "^0.8.0",
     "@elysiajs/cors": "^0.8.0",
     "@elysiajs/swagger": "^0.8.3",
     "elysia": "latest",
+    "jose": "^5.2.0",
     "kysely": "^0.27.2",
     "pg": "^8.11.3"
   },

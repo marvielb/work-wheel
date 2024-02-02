@@ -4,10 +4,12 @@ import swagger from '@elysiajs/swagger';
 import timeDeparture from './features/time-departure';
 import locations from './features/locations';
 import shuttle from './features/shuttles';
+import auth from './plugins/auth';
 
 const app = new Elysia()
   .use(cors())
   .use(swagger())
+  .use(auth)
   .use(timeDeparture)
   .use(locations)
   .use(shuttle)
