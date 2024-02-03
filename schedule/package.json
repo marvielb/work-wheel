@@ -9,9 +9,11 @@
     "gen:sched": "bun run scripts/generate-schedules.ts"
   },
   "dependencies": {
+    "@elysiajs/bearer": "^0.8.0",
     "@elysiajs/cors": "^0.8.0",
     "@elysiajs/swagger": "^0.8.5",
     "elysia": "latest",
+    "jose": "^5.2.0",
     "mongodb": "^6.3.0",
     "openapi-fetch": "^0.8.2"
   },

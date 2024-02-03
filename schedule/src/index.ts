@@ -4,6 +4,7 @@ import { Elysia, t } from 'elysia';
 import { Value } from '@sinclair/typebox/value';
 import { shuttleScheduleSchema } from './schemas';
 import swagger from '@elysiajs/swagger';
+import auth from './plugins/auth';
 
 const schedulesQuerySchema = t.Object({
   time_departure: t.Numeric(),
@@ -14,6 +15,7 @@ const schedulesQuerySchema = t.Object({
 const app = new Elysia()
   .use(cors())
   .use(swagger())
+  .use(auth)
   .model({
     schedulesQuery: schedulesQuerySchema,
     schedules: t.Array(shuttleScheduleSchema),

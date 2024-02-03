@@ -21,6 +21,7 @@ export const MainLayout = () => {
 
   useEffect(() => {
     if (auth.isLoading || auth.isAuthenticated) {
+      console.log(auth.user?.access_token);
       return;
     }
     auth.signinRedirect();
@@ -54,7 +55,7 @@ export const MainLayout = () => {
       <div className="p-4">
         <Outlet />
       </div>
-      <div className="btm-nav  shadow-2xl">
+      <div className="btm-nav shadow-2xl">
         {layoutData.map((data, i) => (
           <Link key={i} to={data.path}>
             {data.icon}
