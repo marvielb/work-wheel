@@ -7,6 +7,15 @@ import shuttle from './features/shuttles';
 import auth from './plugins/auth';
 import { basicAuth } from 'elysia-basic-auth';
 
+const users =
+  Bun.env.AUTH_USERS?.split(';').map((cred) => {
+    const user = cred.split(':');
+    return {
+      username: user[0],
+      password: user[1],
+    };
+  }) || [];
+
 const app = new Elysia()
   .use(cors())
   .use(swagger())
@@ -15,7 +24,7 @@ const app = new Elysia()
     app
       .use(
         basicAuth({
-          users: [{ username: 'admin', password: 'admin' }],
+          users,
           realm: '',
         })
       )
