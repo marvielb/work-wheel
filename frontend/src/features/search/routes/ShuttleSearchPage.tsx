@@ -2,8 +2,10 @@ import { useState } from 'react';
 import ShuttleSearchForm from '../components/ShuttleSearchForm';
 import { useQuery } from '@tanstack/react-query';
 import fetchSchedules from '../api/fetchSchedules';
+import { useAuth } from 'react-oidc-context';
 
 const ShuttleSearchPage = () => {
+  const auth = useAuth();
   const [shuttleSearchData, setShuttleSearchData] = useState<
     | {
         timeDepartureId: number;
@@ -20,15 +22,17 @@ const ShuttleSearchPage = () => {
       shuttleSearchData?.timeDepartureId,
       shuttleSearchData?.fromLocationId,
       shuttleSearchData?.toLocationId,
+      auth.user?.access_token,
     ],
     queryFn: () => {
       return fetchSchedules(
+        auth.user?.access_token || '',
         shuttleSearchData?.timeDepartureId || 0,
         shuttleSearchData?.fromLocationId || 0,
         shuttleSearchData?.toLocationId || 0
       );
     },
-    enabled: !!shuttleSearchData,
+    enabled: !!shuttleSearchData && !!auth.user?.access_token,
   });
 
   return (

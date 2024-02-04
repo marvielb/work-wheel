@@ -1,7 +1,11 @@
 import { catalogClient } from '@/lib/api';
 
-const fetchTimeDepartures = async () => {
-  const { data: timeDepartures } = await catalogClient.GET('/time-departures');
+const fetchTimeDepartures = async (token: string) => {
+  const { data: timeDepartures } = await catalogClient.GET('/time-departures', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   return timeDepartures?.map((departure) => ({
     ...departure,

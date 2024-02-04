@@ -5,6 +5,7 @@ import { Type, type Static } from '@sinclair/typebox';
 import { useForm } from 'react-hook-form';
 import { typeboxResolver } from '@hookform/resolvers/typebox';
 import { useEffect } from 'react';
+import { useAuth } from 'react-oidc-context';
 
 const shuttleSearchSchema = Type.Object({
   time_departure_id: Type.String(),
@@ -17,8 +18,17 @@ export interface ShuttleSearchFormProps {
 }
 
 const ShuttleSearchForm = (props: ShuttleSearchFormProps) => {
-  const timeDepartures = useQuery({ queryKey: ['timeDepartures'], queryFn: fetchTimeDepartures });
-  const locations = useQuery({ queryKey: ['locations'], queryFn: fetchLocations });
+  const auth = useAuth();
+  const timeDepartures = useQuery({
+    queryKey: ['timeDepartures', auth.user?.access_token],
+    queryFn: () => fetchTimeDepartures(auth.user?.access_token || ''),
+    enabled: !!auth.user?.access_token,
+  });
+  const locations = useQuery({
+    queryKey: ['locations', auth.user?.access_token],
+    queryFn: () => fetchLocations(auth.user?.access_token || ''),
+    enabled: !!auth.user?.access_token,
+  });
   const { register, handleSubmit, setValue } = useForm<Static<typeof shuttleSearchSchema>>({
     resolver: typeboxResolver(shuttleSearchSchema),
   });

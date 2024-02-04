@@ -4,6 +4,9 @@ import { paths as keycloakPaths } from './api/keycloak';
 
 export const catalogClient = createClient<catalogPaths>({
   baseUrl: Bun.env.CATALOG_SERVICE_URL,
+  headers: {
+    Authorization: `Basic ${Buffer.from('admin:admin').toString('base64')}`,
+  },
 });
 
 export const keyCloakClient = createClient<keycloakPaths>({

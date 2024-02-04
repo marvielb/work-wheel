@@ -1,7 +1,9 @@
 import { catalogClient } from '@/lib/api';
 
-const fetchLocations = async () => {
-  const { data } = await catalogClient.GET('/locations');
+const fetchLocations = async (token: string) => {
+  const { data } = await catalogClient.GET('/locations', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
   return data;
 };
 

@@ -1,6 +1,7 @@
 import { schedulesClient } from '@/lib/api';
 
 const fetchSchedules = async (
+  token: string,
   timeDepatureId: number,
   fromLocationId: number,
   toLocationId: number
@@ -12,6 +13,9 @@ const fetchSchedules = async (
         from_location: fromLocationId,
         to_location: toLocationId,
       },
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
   });
   return schedules;

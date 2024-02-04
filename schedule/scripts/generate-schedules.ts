@@ -8,9 +8,9 @@ const insertShuttleScheduleSchema = t.Omit(shuttleScheduleSchema, ['_id']);
 
 const accessToken = await getKeyCloakToken();
 
-const { data: shuttles } = await catalogClient.GET('/shuttles');
-const { data: times } = await catalogClient.GET('/time-departures');
-const { data: locations } = await catalogClient.GET('/locations');
+const { data: shuttles } = await catalogClient.GET('/service/shuttles');
+const { data: times } = await catalogClient.GET('/service/time-departures');
+const { data: locations } = await catalogClient.GET('/service/locations');
 const { data: drivers } = await keyCloakClient.GET('/admin/realms/{realm}/groups/{id}/members', {
   params: { path: { realm: 'work-wheel', id: Bun.env.KEYCLOAK_DRIVERS_GROUP_ID || '' } },
   headers: {
