@@ -1,0 +1,26 @@
+{
+  "name": "booking",
+  "version": "1.0.50",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/index.ts",
+    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
+    "migrate": "bun run scripts/migrate.ts",
+    "gen:migration": "bun run scripts/generate-migration.ts",
+    "gen:types": "bunx kysely-codegen"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "^0.8.0",
+    "@elysiajs/swagger": "^0.8.5",
+    "elysia": "latest",
+    "kysely": "^0.27.2",
+    "pg": "^8.11.3"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.0",
+    "bun-types": "latest",
+    "kysely-codegen": "^0.11.0",
+    "prettier": "^3.2.5"
+  },
+  "module": "src/index.js"
+}
